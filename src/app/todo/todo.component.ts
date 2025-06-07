@@ -57,8 +57,11 @@ Limpar: any;
   }
 
   clearCompletedTasks() {
-    this.todoService.clearCompletedTasks();
-    this.loadTodos();
+    if (this.todos.some(todo => todo.completed) && confirm('Tem certeza que deseja limpar as tarefas concluídas?')) {
+      this.todoService.clearCompletedTasks();
+      this.loadTodos();
+    }
+  
   }
 
   toggleCompletedTasks() {
