@@ -8,7 +8,12 @@ import { TodoService } from '../shared/services/todo.service';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
+
   todos: Todo[] = [];
+  tarefas: any;
+  adicionarNaLista(tarefa: Todo) {
+    this.tarefas.push(tarefa)
+  }
   showCompletedTasks: boolean = true;
 Limpar: any;
 
@@ -33,6 +38,8 @@ Limpar: any;
 
     this.todoService.addTodo(newTodo);
   }
+
+  
 
   updateTodo(updatedTodo: Todo) {
     this.todoService.updateTodo(updatedTodo);
