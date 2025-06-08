@@ -20,24 +20,38 @@ updateSharedTask(newTaskTitle: string): void {
 
   addTask() {
     const inputTrim = this.newTaskTitle.trim();
-    if (inputTrim.includes('|')) {
-      const part = inputTrim.split('|');
 
-      part.forEach((item) => {
-        const TrimInput = item.trim();
-        if (TrimInput) {
-          const newTodo: Todo = {
-           id: this.todoService.getNextId(),
-            title: TrimInput,
-            completed: false,
-        };
-      this.todoService.addTodo(newTodo);
+    if (!inputTrim) {
+      alert('Por favor, insira uma tarefa');
+      return;
     }
-  });
-  this.newTaskTitle = '';
-} else { 
-    alert('Insira uma tarefa válida!');
-    return;
+
+    // Se houver '|', adiciona múltiplas tarefas
+    if (inputTrim.includes('|')) {
+      const parts = inputTrim.split('|');
+      parts.forEach((item) => {
+        const trimmedItem = item.trim();
+        if (trimmedItem) {
+          const newTodo: Todo = {
+            id: this.todoService.getTodoNewId(),
+            title: trimmedItem,
+            completed: false,
+          };
+          this.todoService.addTodo(newTodo);
+          this.updateSharedTask(trimmedItem);
+        }
+      });
+    } else {
+      // Adiciona uma única tarefa
+      const newTodo: Todo = {
+        id: this.todoService.getTodoNewId(),
+        title: inputTrim,
+        completed: false,
+      };
+      this.todoService.addTodo(newTodo);
+      this.updateSharedTask(inputTrim);
+    }
+
+    this.newTaskTitle = '';
   }
-}
 }
