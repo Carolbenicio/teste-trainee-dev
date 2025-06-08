@@ -3,6 +3,7 @@ import { Todo } from '../../shared/models/todo.model';
 import { TodoService } from 'src/app/shared/services/todo.service';
 import { NgModel } from '@angular/forms';
 import { Filter } from 'bad-words';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-task',
@@ -24,18 +25,26 @@ updateSharedTask(newTaskTitle: string): void {
     const inputTrim = this.newTaskTitle.trim();
 
     const filter = new Filter();
-     filter.addWords('merda', 'porra', 'caralho', 'puta', 'foda', 'cacete', 'bosta', 'desgraça', 'arrombado', 'corno',
-'fdp', 'babaca', 'otário', 'viado', 'cu', 'pau', 'buceta', 'piranha', 'cuzão', 'escroto',
-'nojento', 'filho da puta', 'imbecil', 'retardado', 'vagabunda', 'merdinha', 'boiola', 'panaca', 'chupa', 'enfia');
+    filter.addWords('merda', 'porra', 'caralho', 'puta', 'foda', 'cacete', 'bosta', 'desgraça', 'arrombado', 'corno',
+      'fdp', 'babaca', 'otário', 'viado', 'cu', 'pau', 'buceta', 'piranha', 'cuzão', 'escroto',
+      'nojento', 'filho da puta', 'imbecil', 'retardado', 'vagabunda', 'merdinha', 'boiola', 'panaca', 'chupa', 'enfia');
     if (filter.isProfane(this.newTaskTitle)) {
       this.newTaskTitle = filter.clean(this.newTaskTitle);
 
-      alert('Não é permitido cadastrar tarefas com palavras obscenas.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Atenção',
+        text: 'Não é permitido cadastrar tarefas com palavras obscenas.'
+      });
       return;
     }
 
     if (!inputTrim) {
-      alert('Por favor, insira uma tarefa');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção',
+        text: 'Por favor, insira uma tarefa'
+      });
       return;
     }
     if (inputTrim.includes('|')) {
