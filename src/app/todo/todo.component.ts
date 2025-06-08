@@ -39,8 +39,6 @@ Limpar: any;
     this.todoService.addTodo(newTodo);
   }
 
-  
-
   updateTodo(updatedTodo: Todo) {
     this.todoService.updateTodo(updatedTodo);
   }

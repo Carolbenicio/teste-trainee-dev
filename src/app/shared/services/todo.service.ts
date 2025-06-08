@@ -8,6 +8,9 @@ import { Todo } from '../models/todo.model';
 export class TodoService {
   private todos!: Todo[];
 
+  public sharedTask: string = '';
+  public editingTodoId?: number;
+
   constructor() {
     this.loadFromLocalStorage();
   }
@@ -50,6 +53,14 @@ export class TodoService {
       this.updateLocalStorageAndSave();
     }
   }
+  editTodo(todoId: number, newTodo: Todo): void {
+    const index = this.todos.findIndex(todo => todo.id === todoId);
+    if (index !== -1) {
+      this.todos.splice(index, 1, newTodo);
+      this.sortTodos();
+      this.updateLocalStorageAndSave();
+  }
+}
 
   deleteTodo(todoId: number): void {
     const index = this.todos.findIndex(todo => todo.id === todoId);
@@ -86,3 +97,5 @@ export class TodoService {
     this.updateLocalStorageAndSave();
   }
 }
+
+
