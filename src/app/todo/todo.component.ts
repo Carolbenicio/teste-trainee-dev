@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../shared/models/todo.model';
 import { TodoService } from '../shared/services/todo.service';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-todo',
@@ -79,5 +80,13 @@ Limpar: any;
   sortTasks(){
   this.todos.sort((a, b) => a.title.localeCompare(b.title));
   this.loadTodos();
+  }
+  exportToPDF() {
+    const doc = new jsPDF();
+    doc.text('Lista de Tarefas', 10, 10);
+    this.todos.forEach((todo, index) => {
+      doc.text(`${index + 1}. ${todo.title}`, 10, 20 + (index * 10));
+    });
+    doc.save('tarefas.pdf');
   }
 }
