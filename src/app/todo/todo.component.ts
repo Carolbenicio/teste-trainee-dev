@@ -75,4 +75,9 @@ Limpar: any;
   get labelClearAll(){
     return 'Clear All'
   }
+
+  sortTasks(){
+  this.todos.sort((a, b) => a.title.localeCompare(b.title));
+  this.loadTodos();
+  }
 }
