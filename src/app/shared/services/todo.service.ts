@@ -14,6 +14,13 @@ export class TodoService {
   constructor() {
     this.loadFromLocalStorage();
   }
+  
+  getNextId(): number {
+    if (this.todos.length === 0) {
+      return 1;
+    }
+    return Math.max(...this.todos.map(todo => todo.id)) + 1;
+  }
 
   private saveToLocalStorage(): void {
     localStorage.setItem('todos', JSON.stringify(this.todos));
