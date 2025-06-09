@@ -1,5 +1,5 @@
 
-#Relatório Técnico - Caroline Benicio Pinheiro
+##Relatório Técnico - Caroline Benicio Pinheiro
 
 **Visão geral:** A aplicação de lista de tarefas apresentava bugs e instabilidade quando foi entregue. Foi realizado um tratamento de todos os erros e implementação de funcionalidades conforme os requisitos solicitados com três passos principais 
 
